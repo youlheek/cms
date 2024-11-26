@@ -23,3 +23,7 @@ public class EmailSendService {
 		return mailgunClient.sendEmail(form).getBody();
 	}
 }
+
+/**
+ * 이 클래스는 email 인증을 위한 테스트 클래스였기 때문에 삭제조치함
+ */
