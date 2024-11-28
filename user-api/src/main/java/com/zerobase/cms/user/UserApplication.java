@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableFeignClients
 @SpringBootApplication
-// 📍 테스트를 위해 밑에 어노테이션들을 추가했는데 그 이유가 뭘까
+// 📍 SignUpCustomerService테스트를 위해 밑에 어노테이션들을 추가했는데 그 이유가 뭘까
 @EnableJpaAuditing
 @EnableJpaRepositories
 @RequiredArgsConstructor
