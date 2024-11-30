@@ -1,2 +1,4 @@
 rootProject.name = 'cms'
 include 'user-api'
+include 'zerobase-domain'
+
