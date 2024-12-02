@@ -11,12 +11,10 @@ public class CustomerDto {
 
 	private Long id;
 	private String email;
-	private Integer balance;
 
 	public static CustomerDto from (Customer customer) {
-		return new CustomerDto(customer.getId(), customer.getEmail(), customer.getBalance() == null?0:customer.getBalance());
+		return new CustomerDto(customer.getId(), customer.getEmail());
 		// 📍 왜 build 안쓰고 new 로 쓰지?
-		// 📍 balance 초기값 생성을 0으로 할 순 없나?
 	}
 }
 
