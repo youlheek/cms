@@ -1,4 +1,4 @@
-package com.zerobase.cms.user.service;
+package com.zerobase.cms.user.service.customer;
 
 import com.zerobase.cms.user.domain.model.Customer;
 import com.zerobase.cms.user.repository.CustomerRepository;

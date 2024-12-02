@@ -1,4 +1,4 @@
-package com.zerobase.cms.user.service;
+package com.zerobase.cms.user.service.customer;
 
 import com.zerobase.cms.user.domain.SignUpForm;
 import com.zerobase.cms.user.domain.model.Customer;
@@ -49,13 +49,13 @@ public class SignUpCustomerService {
 	}
 
 	@Transactional
-	//
-	public LocalDateTime changeCustomerValidateEmail(Long customerId, String vericationCode) {
+	// 인증코드
+	public LocalDateTime changeCustomerValidateEmail(Long customerId, String verificationCode) {
 		Optional<Customer> customerOptional = customerRepository.findById(customerId);
 
-		if (customerOptional.isPresent()) {
+		if (customerOptional.isPresent()) { // null 체크
 			Customer customer = customerOptional.get();
-			customer.setVerificationCode(vericationCode);
+			customer.setVerificationCode(verificationCode);
 			customer.setVerifyExpiredAt(LocalDateTime.now().plusDays(1));
 
 			return customer.getVerifyExpiredAt();
