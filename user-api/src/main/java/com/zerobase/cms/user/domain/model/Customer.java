@@ -34,6 +34,9 @@ public class Customer extends BaseEntity {
 	private String verificationCode;
 	private boolean verify;
 
+	@Column(columnDefinition = "int default 0")
+	private Integer balance;
+
 	// TODO : 정적 팩토리 메서드에 대해 알아보자
 	// from, of 등의 메서드 명이 왜 붙여졌고 왜 이게 정석이 된 건지 공부해보자
 	public static Customer from (SignUpForm form) {
