@@ -19,7 +19,7 @@ public class CustomerBalanceHistory extends BaseEntity{
 	private Integer changeMoney;
 	private Integer currentMoney;
 
-	private String fromMessage; // from으로 할 경우에는 쿼리취급당할 수 있음
+	private String fromMessage; // from으로 할 경우에는 쿼리취급당할수있음
 	private String description;
 
 }

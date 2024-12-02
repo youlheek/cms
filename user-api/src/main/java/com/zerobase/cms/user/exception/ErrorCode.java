@@ -17,9 +17,6 @@ public enum ErrorCode {
 	// Login
 	LOGIN_CHECK_FAIL(HttpStatus.BAD_REQUEST, "아이디와 패스워드를 확인해 주세요."),
 
-	// 입출금
-	NOT_ENOUGH_BALANCE(HttpStatus.BAD_REQUEST, "잔액이 부족합니다."),
-
 	;
 
 

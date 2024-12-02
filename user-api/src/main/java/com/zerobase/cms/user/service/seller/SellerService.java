@@ -29,8 +29,8 @@ public class SellerService {
 	}
 
 	/*
-	* SignUp Method - TODO : 추후 리팩토링 필요
-	*/
+	 * SignUp Method - TODO : 추후 리팩토링 필요
+	 */
 	// [셀러] 회원가입
 	public Seller signUp(SignUpForm signUpForm) {
 		return sellerRepository.save(Seller.from(signUpForm));

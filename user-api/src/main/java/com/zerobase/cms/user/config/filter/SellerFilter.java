@@ -32,11 +32,11 @@ public class SellerFilter implements Filter {
 
 		UserVo vo = jwtAuthenticationProvider.getUserVo(token);
 		sellerService.findByIdAndEmail(vo.getId(), vo.getEmail())
-						.orElseThrow( () -> new ServletException("Seller not found")) ;
+				.orElseThrow( () -> new ServletException("Seller not found")) ;
 
 		chain.doFilter(request, response);
 	}
 }
 /*
-* ServletReqeust Vs HttpServletRequest
-* */
+ * ServletReqeust Vs HttpServletRequest
+ * */
