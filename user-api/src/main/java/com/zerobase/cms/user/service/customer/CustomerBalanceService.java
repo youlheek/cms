@@ -40,7 +40,9 @@ public class CustomerBalanceService {
 		customerBalanceHistory = CustomerBalanceHistory.builder()
 				.customer(customerBalanceHistory.getCustomer())
 				.changeMoney(form.getMoney())
+				// 변경된 돈이면 위에 if문처럼 바꿔야하는거 아닌가?
 				.currentMoney(customerBalanceHistory.getCurrentMoney() + form.getMoney())
+				// 근데 변화된 금액을 적어야 하는거 아닌가?
 				.fromMessage(form.getFrom())
 				.description(form.getMessage())
 				.build();
