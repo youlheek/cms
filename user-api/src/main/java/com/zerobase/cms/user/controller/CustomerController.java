@@ -4,7 +4,7 @@ import com.zerobase.cms.user.domain.customer.CustomerDto;
 import com.zerobase.cms.user.domain.model.Customer;
 import com.zerobase.cms.user.exception.CustomException;
 import com.zerobase.cms.user.exception.ErrorCode;
-import com.zerobase.cms.user.service.CustomerService;
+import com.zerobase.cms.user.service.customer.CustomerService;
 import com.zerobase.domain.common.UserVo;
 import com.zerobase.domain.config.JwtAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +23,9 @@ public class CustomerController {
 	private final JwtAuthenticationProvider provider;
 	private final CustomerService customerService;
 
-	// 회원 정보
+	// Token으로 getIntfo
 	@GetMapping("/getInfo")
-	public ResponseEntity<CustomerDto> getInfo(
+	public ResponseEntity<CustomerDto> getInfo (
 			@RequestHeader(name = "X-AUTH-TOKEN") String token)  {
 
 		UserVo vo = provider.getUserVo(token);

@@ -16,12 +16,19 @@ public class SignInController {
 
 	private final SignInApplication signInApplication;
 
-	// 로그인하기
+	// [고객] - 로그인 및 토큰 발행
 	@PostMapping("/customer")
 	public ResponseEntity<String> signInCustomer(@RequestBody SignInForm form) {
 		// 토큰 발행
 		// 로그인 처리
 
 		return ResponseEntity.ok(signInApplication.customerLogInToken(form));
+	}
+
+	// [셀러] - 로그인 및 토큰 발행
+	@PostMapping("/seller")
+	public ResponseEntity<String> signInSeller(@RequestBody SignInForm form) {
+		// 로그인 처리 및 토큰 발행
+		return ResponseEntity.ok(signInApplication.sellerLogInToken(form));
 	}
 }

@@ -1,6 +1,6 @@
 package com.zerobase.cms.user.config.filter;
 
-import com.zerobase.cms.user.service.CustomerService;
+import com.zerobase.cms.user.service.customer.CustomerService;
 import com.zerobase.domain.common.UserVo;
 import com.zerobase.domain.config.JwtAuthenticationProvider;
 import jakarta.servlet.*;
