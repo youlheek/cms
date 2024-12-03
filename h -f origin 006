@@ -1,0 +1,82 @@
+[33mcommit 4b8b22af1bc5fc6a847a2636462b98c1dd1c624a[m[33m ([m[1;36mHEAD -> [m[1;32m006-CUSTOMER-BALANCE[m[33m)[m
+Author: youlheek <youlheek@gmail.com>
+Date:   Mon Dec 2 23:40:32 2024 +0900
+
+    feat : [005-SIGNUP&LOGIN-SELLER] 판매자(SELLER)에 대한 토큰 필터 처리
+
+[33mcommit 13623d40a11489be85faa6fb4dd1d1dd194c00da[m
+Author: youlheek <youlheek@gmail.com>
+Date:   Mon Dec 2 18:04:07 2024 +0900
+
+    feat : [005-SIGNUP&LOGIN-SELLER] 판매자(SELLER)에 대한 회원가입 및 로그인 토큰 발행 구현
+
+[33mcommit 9d84a230c89d5d0de931a5fad8ea9d4de9e46737[m[33m ([m[1;31morigin/004-LOGIN-CUSTOMER[m[33m, [m[1;32m004-LOGIN-CUSTOMER[m[33m)[m
+Author: youlheek <youlheek@gmail.com>
+Date:   Sun Dec 1 01:17:36 2024 +0900
+
+    feat : [004-LOGIN-CUSTOMER] 고객(Customer)에 대한 로그인 구현
+    
+    JWT의 내부 암호화
+    /customer/* 에 대한 token filter 적용
+
+[33mcommit a29335451d651e2a2c1db72f6062a5e29cc20d87[m
+Merge: 5bbf67e 07483a5
+Author: youlheek <49027512+youlheek@users.noreply.github.com>
+Date:   Thu Nov 28 21:55:43 2024 +0900
+
+    Merge pull request #3 from youlheek/003-EMAIL-VERIFICATION
+    
+    [003-EMAIL-VERIFICATION] email 인증 서비스 구현 및 전역 에러 처리
+
+[33mcommit 07483a5ac3c9da1ee2951d61af6db1c8c04fba1a[m[33m ([m[1;31morigin/003-EMAIL-VERIFICATION[m[33m, [m[1;32m003-EMAIL_AUTHORIZATION[m[33m)[m
+Author: youlheek <youlheek@gmail.com>
+Date:   Thu Nov 28 21:53:03 2024 +0900
+
+    feat : [003-EMAIL-VERIFICATION] email 인증 서비스 구현 및 전역 에러 처리
+
+[33mcommit 5bbf67e880bc090039ed2a24aa1ca1e9cf7b95ae[m
+Merge: cdfda30 ff165ca
+Author: youlheek <49027512+youlheek@users.noreply.github.com>
+Date:   Tue Nov 26 18:25:15 2024 +0900
+
+    Merge pull request #2 from youlheek/002-SIGN-UP
+    
+    [002-SIGN-UP] Customer(고객)에 대한 SignUp Service 구현
+
+[33mcommit ff165cae27d90ff171da665e69b339b6cc4a2e7e[m[33m ([m[1;31morigin/002-SIGN-UP[m[33m, [m[1;32m002-SIGN-UP[m[33m)[m
+Author: youlheek <youlheek@gmail.com>
+Date:   Tue Nov 26 18:22:47 2024 +0900
+
+    feat : [002-SIGN-UP] Customer(고객)에 대한 SignUp Service 구현
+
+[33mcommit 2d23bd0269f8f05ee099822b7457dd8b0ac33a03[m[33m ([m[1;31morigin/001-EMAIL-Connect[m[33m, [m[1;32m001-EMAIL-Connect[m[33m)[m
+Author: youlheek <youlheek@gmail.com>
+Date:   Tue Nov 26 18:16:16 2024 +0900
+
+    feat : [001-EMAIL-Connect] mailgun에 대한 email 연동
+    무료계정으로 테스트 시 이메일 등록 반드시 필요
+
+[33mcommit cdfda30b4b93abfb851014342154e168c9d719c2[m[33m ([m[1;32m003-EMAIL-VERIFICATION[m[33m)[m
+Merge: cf8f48d ca6fd6c
+Author: youlheek <youlheek@gmail.com>
+Date:   Tue Nov 26 13:59:24 2024 +0900
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit cf8f48d47eaa31c21ea6082f0b5653813bf87995[m
+Author: youlheek <youlheek@gmail.com>
+Date:   Tue Nov 26 13:58:58 2024 +0900
+
+    [공통] secret key 관리, 이메일 보내기
+
+[33mcommit ca6fd6c437c6511fdcda7f11e724c4a30d81604e[m
+Author: youlheek <49027512+youlheek@users.noreply.github.com>
+Date:   Sat Nov 23 22:14:13 2024 +0900
+
+    Create README.md
+
+[33mcommit fb01b355cdbc27de23b7732caa163e7de1bf128e[m
+Author: youlheek <youlheek@gmail.com>
+Date:   Sat Nov 23 22:13:33 2024 +0900
+
+    Initial commit
