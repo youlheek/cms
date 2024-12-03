@@ -15,11 +15,11 @@ public class CustomerDto {
 
 	public static CustomerDto from (Customer customer) {
 		return new CustomerDto(customer.getId(), customer.getEmail(), customer.getBalance() == null?0:customer.getBalance());
-		// 📍 왜 build 안쓰고 new 로 쓰지?
 		// 📍 balance 초기값 생성을 0으로 할 순 없나?
 	}
 }
 
+// 📍 왜 build 안쓰고 new 로 쓰지?
 /*
 * 빌더 패턴은 주로 복잡한 객체를 생성할 때 사용합니다.
 * 많은 필드가 있거나, 필수와 선택 필드가 구분되어 있는 경우 빌더 패턴을 사용하면 코드의 가독성과 유지보수성이 높아집니다.
