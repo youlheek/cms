@@ -19,5 +19,5 @@ public abstract class BaseEntity {
 	private LocalDateTime createdAt;
 	@LastModifiedDate
 	private LocalDateTime modifiedAt;
-	// 📍 SignUpForm 에는 LocalDate를 써놓고 왜 여기선 LocalDateTime을 썼을까?
+	// TODO : 📍 SignUpForm 에는 LocalDate를 써놓고 왜 여기선 LocalDateTime을 썼을까?
 }
