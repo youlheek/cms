@@ -15,7 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 // @WebServlet, @WebFilter, @WebListener 등의 어노테이션을 자동으로 스캔하고 스프링 컨텍스트에 등록
 @EnableFeignClients
 @SpringBootApplication
-// 📍 SignUpCustomerService테스트를 위해 밑에 어노테이션들을 추가했는데 그 이유가 뭘까
+// TODO : 📍 SignUpCustomerService테스트를 위해 밑에 어노테이션들을 추가했는데 그 이유가 뭘까
 @EnableJpaAuditing
 @EnableJpaRepositories
 @RequiredArgsConstructor

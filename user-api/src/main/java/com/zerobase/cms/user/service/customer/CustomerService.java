@@ -18,7 +18,7 @@ public class CustomerService {
 				.stream()
 				.filter( customer -> customer.getEmail().equals(email) )
 				.findFirst();
-		// 📍 왜 고유한 id로 검색하면서 email로 filter를 한번 더 걸러내는가?
+		// TODO : 📍 왜 고유한 id로 검색하면서 email로 filter를 한번 더 걸러내는가?
 	}
 
 	// 1. 로그인 가능 여부 체크
