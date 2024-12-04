@@ -26,7 +26,7 @@ public class Customer extends BaseEntity {
 	private String email;
 	private String name;
 	private String password; // 🏷️실제로는 암호화해야함
-	private String phone; // 🏷️폰번호의 validation을 어떻게 정의할건지
+	private String phone; // TODO : 🏷️폰번호의 validation을 어떻게 정의할건지
 	private LocalDate birth;
 
 	// 이메일 인증을 위한 컬럼
@@ -37,8 +37,7 @@ public class Customer extends BaseEntity {
 	@Column(columnDefinition = "int default 0")
 	private Integer balance;
 
-	// TODO : 정적 팩토리 메서드에 대해 알아보자
-	// from, of 등의 메서드 명이 왜 붙여졌고 왜 이게 정석이 된 건지 공부해보자
+
 	public static Customer from (SignUpForm form) {
 		return Customer.builder()
 				.email(form.getEmail().toLowerCase(Locale.ROOT))

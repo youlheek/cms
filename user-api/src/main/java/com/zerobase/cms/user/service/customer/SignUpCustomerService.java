@@ -37,7 +37,7 @@ public class SignUpCustomerService {
 	public void verifyEmail(String email, String code) {
 		Customer customer = customerRepository.findByEmail(email)
 				.orElseThrow(() -> new CustomException(NOT_FOUND_USER));
-		if (customer.isVerify()) { // TODO : 📍 isVerify를 어떻게 쓸 수 있는거지?
+		if (customer.isVerify()) { // isVerify : Lombok의 @Getter 메서드를 통해 생성
 			throw new CustomException(ALREADY_VERIFY);
 		} else if (!customer.getVerificationCode().equals(code)) {
 			throw new CustomException(WRONG_VERIFICATION);
