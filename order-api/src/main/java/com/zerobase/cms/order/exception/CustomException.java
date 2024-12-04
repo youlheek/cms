@@ -13,7 +13,8 @@ public class CustomException extends RuntimeException {
 
 	public CustomException(ErrorCode errorCode) {
 		super(errorCode.getDetail());
-		// TODO : 📍 getDetail이 String으로 임의 작성하는건데 그게 어떻게 RuntimeException에서 먹히지..?
+		// super 을 타고 올라가보면 String을 출력하게끔 정의되어있기 때문에
+		// 우리가 임의로 작성한 에러코드가 사용자에게 보여지거나 로그에 남게 되는것
 		this.errorCode = errorCode;
 		this.status = errorCode.getHttpStatus().value();
 	}
