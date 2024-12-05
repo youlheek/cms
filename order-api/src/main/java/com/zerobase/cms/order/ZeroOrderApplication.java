@@ -11,7 +11,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableFeignClients // 다른 모듈과 통신을 위해 ?
 @EnableJpaAuditing
-@EnableJpaRepositories(repositoryBaseClass = EnversRevisionRepositoryFactoryBean.class)
+@EnableJpaRepositories
+//@EnableJpaRepositories(repositoryBaseClass = EnversRevisionRepositoryFactoryBean.class)
+// 빈 생성 에러나서 지움
 @ServletComponentScan
 public class ZeroOrderApplication {
 	public static void main(String[] args) {
