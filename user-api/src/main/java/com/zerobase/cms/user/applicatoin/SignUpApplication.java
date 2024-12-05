@@ -34,6 +34,7 @@ public class SignUpApplication {
 			throw new CustomException(ALREADY_REGISTERED_USER);
 		} else {
 			// 회원가입 - DB에 save
+			// TODO : 에러나면 rollback 시켜야 함! DB에 저장 X
 			Customer customer = signUpCustomerService.signUp(form);
 			LocalDateTime now = LocalDateTime.now();
 

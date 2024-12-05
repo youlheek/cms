@@ -25,8 +25,8 @@ public class CustomerController {
 
 	// Token으로 getIntfo
 	@GetMapping("/getInfo")
-	public ResponseEntity<CustomerDto> getInfo (
-			@RequestHeader(name = "X-AUTH-TOKEN") String token)  {
+	public ResponseEntity<CustomerDto> getInfo(
+			@RequestHeader(name = "X-AUTH-TOKEN") String token) {
 
 		UserVo vo = provider.getUserVo(token);
 
@@ -47,4 +47,4 @@ public class CustomerController {
 		return ResponseEntity.ok(
 				customerBalanceService.changeBalance(vo.getId(), form).getCurrentMoney());
 	}
-}
+
