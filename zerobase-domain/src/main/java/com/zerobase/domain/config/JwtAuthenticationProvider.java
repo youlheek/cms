@@ -18,7 +18,8 @@ public class JwtAuthenticationProvider {
 //	private String secretKey = "secretKey";
 	// jwt 토큰의 서명 키가 너무 짧아서 보안 요구 사항을 충족시키지 못한다며 에러가 남
 	// -> HS256 알고리즘은 256비트 이상의 서명 키를 요구함
-	private static final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+	private String secretKey = "testSecretKey20230327testSecretKey20230327testSecretKey20230327";
+//	private static final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	private long tokenValidTime = 1000L * 60 * 60 * 24;
 
 	// Token 생성
@@ -52,6 +53,7 @@ public class JwtAuthenticationProvider {
 	// 토큰으로 UserVo 객체 생성
 	public UserVo getUserVo(String token) {
 		Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+		// TODO : 코드 확인
 
 		return new UserVo(
 				Long.valueOf(Objects.requireNonNull(Aes256Util.decrypt(claims.getId()))),

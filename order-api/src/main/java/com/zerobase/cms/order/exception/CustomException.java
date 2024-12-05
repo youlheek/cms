@@ -1,8 +1,7 @@
 package com.zerobase.cms.order.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
 public class CustomException extends RuntimeException {
@@ -18,4 +17,14 @@ public class CustomException extends RuntimeException {
 		this.errorCode = errorCode;
 		this.status = errorCode.getHttpStatus().value();
 	}
+
+	@Builder
+	@Getter
+	@AllArgsConstructor @NoArgsConstructor
+	public static class CustomExceptionResponse{
+		private int status;
+		private String code;
+		private String message;
+	}
+	// TODO : 내부 클래스를 만드는게 어떤 의미인지
 }
