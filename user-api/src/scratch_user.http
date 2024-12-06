@@ -13,5 +13,13 @@
 ### 회원가입 (셀러)
 
 ### 로그인 (셀러)
+POST http://localhost:8081/signIn/seller
+Content-Type: application/json
 
-// TODO : scratch
+{
+  "email": "youlheek@gmail.com",
+  "password": "string"
+}
+
+
+### TODO : scratch

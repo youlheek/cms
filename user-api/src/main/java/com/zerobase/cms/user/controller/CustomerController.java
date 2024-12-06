@@ -48,3 +48,4 @@ public class CustomerController {
 				customerBalanceService.changeBalance(vo.getId(), form).getCurrentMoney());
 	}
 
+}
