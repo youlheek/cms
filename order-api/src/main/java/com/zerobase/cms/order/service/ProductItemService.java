@@ -49,4 +49,13 @@ public class ProductItemService {
 
 		return productItem;
 	}
+
+	// 상품 옵션 삭제
+	@Transactional
+	public void deleteProductItem(Long sellerId, Long productItemId) {
+		ProductItem productItem = productItemRepository.findById(productItemId)
+				.orElseThrow(() -> new CustomException(NOT_FOUND_ITEM));
+
+		productItemRepository.delete(productItem);
+	}
 }
