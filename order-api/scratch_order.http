@@ -1,1 +1,31 @@
-###
+### 상품 수정 - 근데 이러면 옵션 수정이랑 뭐가 달라
+PUT http://localhost:8082/seller/product
+X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJXckVlMHB0Tnp5bG1zT1BHMGdKaXpkODhlcS9OcUdoWm5aa00zYjVaSXNNPSIsImp0aSI6ImovVjVCeUxPc2pIWGFoY005ZnU2ZEE9PSIsInJvbGVzIjoiU0VMTEVSIiwiaWF0IjoxNzMzNDY0MDgzLCJleHAiOjE3MzM1NTA0ODN9.gW8ET434GMaEyX6Db0Noh314fIF5X3CpfVtsQoctE_s
+Content-Type: application/json
+
+{
+  "productId": 11,
+  "name": "과일청",
+  "description": "string",
+  "itmes": [
+    {
+      "itemId": 32,
+      "name": "string",
+      "price": 0,
+      "count": 0
+    }
+  ]
+}
+
+### 상품 옵션 수정
+PUT http://localhost:8082/seller/product/item
+X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJXckVlMHB0Tnp5bG1zT1BHMGdKaXpkODhlcS9OcUdoWm5aa00zYjVaSXNNPSIsImp0aSI6ImovVjVCeUxPc2pIWGFoY005ZnU2ZEE9PSIsInJvbGVzIjoiU0VMTEVSIiwiaWF0IjoxNzMzNDY0MDgzLCJleHAiOjE3MzM1NTA0ODN9.gW8ET434GMaEyX6Db0Noh314fIF5X3CpfVtsQoctE_s
+Content-Type: application/json
+
+{
+  "productId": 11,
+  "itemId": 32,
+  "name": "뭐로할까",
+  "price": 0,
+  "count": 0
+}
