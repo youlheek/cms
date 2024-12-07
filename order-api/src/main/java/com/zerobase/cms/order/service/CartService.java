@@ -22,7 +22,13 @@ public class CartService {
 
 	// 장바구니 가져오기
 	public Cart getCart(Long customerId) {
-		return redisClient.get(customerId, Cart.class);
+		Cart cart = redisClient.get(customerId, Cart.class);
+		return cart != null ? cart : new Cart();
+	}
+
+	public Cart putCart(Long customerId, Cart cart) {
+		redisClient.put(customerId, cart);
+		return cart;
 	}
 
 	// 장바구니에 상품 추가
