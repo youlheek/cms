@@ -28,7 +28,7 @@ public class ProductSearchService {
 	}
 
 	// 목록 검색
-	public List<Product> getListByProducId(List<Long> productIds) {
+	public List<Product> getListByProducIds(List<Long> productIds) {
 		return productRepository.findAllById(productIds);
 	}
 }

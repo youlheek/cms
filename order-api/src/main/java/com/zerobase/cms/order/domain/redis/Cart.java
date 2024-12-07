@@ -22,6 +22,10 @@ public class Cart {
 	private List<Product> products = new ArrayList<>();
 	private List<String> messages = new ArrayList<>();
 
+	public Cart(Long customerId) {
+		this.customerId = customerId;
+	}
+
 	public void addMessage(String message) {
 		messages.add(message);
 	}
@@ -68,4 +72,10 @@ public class Cart {
 					.build();
 		}
 	}
+
+	// 카피에 딥카피와 얕은카피가 있는데 우리는 얕은카피로 할 것임
+	// 인스턴스를 새로 만들지 않고 재활용하는 방식으로 쓸 것
+	// TODO : 카피에 대해 알아보자
+//	public Cart clone() {
+//	}
 }
