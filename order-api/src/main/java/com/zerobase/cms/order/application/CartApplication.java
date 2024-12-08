@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,6 +44,13 @@ public class CartApplication {
 		// 메시지를 보고 난 다음에는, 이미 본 메시지는 스팸이 되기 때문에 제거한다.
 	}
 
+	// 카트 비우기
+	public void cleartCart(Long customerId) {
+		cartService.putCart(customerId, null);
+	}
+
+
+	// 카트 새로고침
 	private Cart refreshCart(Cart cart) {
 		// 1. 상품이나 상품의 아이템의 정보, 가격, 수량이 변경되었는지 체크하고
 		// 그에 맞는 알람을 제공해야함
@@ -153,7 +161,9 @@ public class CartApplication {
 		Cart.Product cartProduct = cart.getProducts().stream()
 				.filter(p -> p.getId().equals(form.getId()))
 				.findFirst()
-				.orElseThrow(() -> new CustomException(NOT_FOUND_PRODUCT));
+				.orElse(Cart.Product.builder().id(product.getId())
+						.items(Collections.emptyList())
+						.build());
 
 		Map<Long, Integer> cartItemCountMap = cartProduct.getItems().stream()
 				.collect(Collectors.toMap(Cart.ProductItem::getId, Cart.ProductItem::getCount));
@@ -162,12 +172,14 @@ public class CartApplication {
 				.collect(Collectors.toMap(ProductItem::getId, ProductItem::getCount));
 
 		return form.getItems().stream().noneMatch(
-				formItem ->
-				{
+				formItem -> {
 					Integer cartCount = cartItemCountMap.get(formItem.getId());
+					if (cartCount == null) {
+						cartCount = 0;
+					}
+
 					Integer dbCount = dbItemCountMap.get(formItem.getId());
 					return formItem.getCount() + cartCount > dbCount;
-				}
-		);
+				});
 	}
 }
