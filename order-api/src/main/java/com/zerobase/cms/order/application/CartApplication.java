@@ -26,6 +26,49 @@ public class CartApplication {
 	private final ProductSearchService productSearchService;
 	private final CartService cartService;
 
+	// 장바구니 상품 추가
+	public Cart addCart(Long customerId, AddProductCartForm form) {
+
+		Product product = productSearchService.getByProductId(form.getId());
+		if (product == null) {
+			throw new CustomException(NOT_FOUND_PRODUCT);
+		}
+
+		Cart cart = cartService.getCart(customerId);
+		if (cart != null && !addAble(cart, product, form)) {
+			throw new CustomException(ITEM_COUNT_NOT_ENOUGH);
+		}
+
+		return cartService.addCart(customerId, form);
+	}
+
+	// 추가할 상품의 수량이 충분한지 검증
+	private boolean addAble(Cart cart, Product product, AddProductCartForm form) {
+		Cart.Product cartProduct = cart.getProducts().stream()
+				.filter(p -> p.getId().equals(form.getId()))
+				.findFirst()
+				.orElse(Cart.Product.builder().id(product.getId())
+						.items(Collections.emptyList())
+						.build());
+
+		Map<Long, Integer> cartItemCountMap = cartProduct.getItems().stream()
+				.collect(Collectors.toMap(Cart.ProductItem::getId, Cart.ProductItem::getCount));
+
+		Map<Long, Integer> dbItemCountMap = product.getProductItems().stream()
+				.collect(Collectors.toMap(ProductItem::getId, ProductItem::getCount));
+
+		return form.getItems().stream().noneMatch(
+				formItem -> {
+					Integer cartCount = cartItemCountMap.get(formItem.getId());
+					if (cartCount == null) {
+						cartCount = 0;
+					}
+
+					Integer dbCount = dbItemCountMap.get(formItem.getId());
+					return formItem.getCount() + cartCount > dbCount;
+				});
+	}
+
 	// 장바구니 가져오기
 	// 1. 장바구니에 상품을 추가했다
 	// 2. 상품의 가격이나 수량이 변동됐다
@@ -48,7 +91,6 @@ public class CartApplication {
 	public void cleartCart(Long customerId) {
 		cartService.putCart(customerId, null);
 	}
-
 
 	// 카트 새로고침
 	private Cart refreshCart(Cart cart) {
@@ -140,46 +182,16 @@ public class CartApplication {
 		return cart;
 	}
 
-	// 장바구니 상품 추가
-	public Cart addCart(Long customerId, AddProductCartForm form) {
-
-		Product product = productSearchService.getByProductId(form.getId());
-		if (product == null) {
-			throw new CustomException(NOT_FOUND_PRODUCT);
-		}
-
-		Cart cart = cartService.getCart(customerId);
-		if (cart != null && !addAble(cart, product, form)) {
-			throw new CustomException(ITEM_COUNT_NOT_ENOUGH);
-		}
-
-		return cartService.addCart(customerId, form);
-	}
-
-	// 추가할 상품의 수량이 충분한지 검증
-	private boolean addAble(Cart cart, Product product, AddProductCartForm form) {
-		Cart.Product cartProduct = cart.getProducts().stream()
-				.filter(p -> p.getId().equals(form.getId()))
-				.findFirst()
-				.orElse(Cart.Product.builder().id(product.getId())
-						.items(Collections.emptyList())
-						.build());
-
-		Map<Long, Integer> cartItemCountMap = cartProduct.getItems().stream()
-				.collect(Collectors.toMap(Cart.ProductItem::getId, Cart.ProductItem::getCount));
-
-		Map<Long, Integer> dbItemCountMap = product.getProductItems().stream()
-				.collect(Collectors.toMap(ProductItem::getId, ProductItem::getCount));
-
-		return form.getItems().stream().noneMatch(
-				formItem -> {
-					Integer cartCount = cartItemCountMap.get(formItem.getId());
-					if (cartCount == null) {
-						cartCount = 0;
-					}
-
-					Integer dbCount = dbItemCountMap.get(formItem.getId());
-					return formItem.getCount() + cartCount > dbCount;
-				});
+	/**
+	 * 엣지 케이스
+	 * @param customerId
+	 * @param cart
+	 * @return
+	 */
+	public Cart updateCart(Long customerId, Cart cart) { // TODO : refreshCart가 있는데 왜 필요한가?
+		// 실질적으로 변하는 데이터
+		// -> 상품의 삭제, 수량 변경
+		cartService.putCart(customerId, cart);
+		return getCart(customerId);
 	}
 }
