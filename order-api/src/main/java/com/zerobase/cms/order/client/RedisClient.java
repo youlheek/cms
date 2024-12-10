@@ -19,19 +19,23 @@ public class RedisClient { // TODO : 코드 확인
 
 	private final RedisTemplate<String, Object> redisTemplate;
 	private static final ObjectMapper mapper = new ObjectMapper();
+	// ObjectMapper : 데이터를 JSON 문자열로 변환하거나, JSON 문자열을 객체로 변환하는 Jackson 라이브러리의 도구
 
 	public <T> T get(Long key, Class<T> classType) {
 		return get(key.toString(), classType);
 	}
 
+	// 카트 가져오기
 	public <T> T get(String key, Class<T> classType) {
 		String redisValue = (String) redisTemplate.opsForValue().get(key);
+		// Redis에서 키에 해당하는 값을 가져와서 JSON 문자열(Object)로 반환
 
 		if (ObjectUtils.isEmpty(redisValue)) {
 			return null;
 		} else {
 			try {
 				return mapper.readValue(redisValue, classType);
+				// json 문자열을 classType의 객체로 변환하여 반환
 			} catch (JsonProcessingException e) {
 				log.error("Parsing error", e);
 				return null;
@@ -43,6 +47,7 @@ public class RedisClient { // TODO : 코드 확인
 		put(key.toString(), cart);
 	}
 
+	// 카트에 넣기
 	public void put(String key, Cart cart) {
 
 		try {

@@ -49,20 +49,52 @@ GET http://localhost:8082/search/product/detail?
 
 ### 장바구니 추가
 POST http://localhost:8082/customer/cart
-X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJXckVlMHB0Tnp5bG1zT1BHMGdKaXpkODhlcS9OcUdoWm5aa00zYjVaSXNNPSIsImp0aSI6ImovVjVCeUxPc2pIWGFoY005ZnU2ZEE9PSIsInJvbGVzIjoiU0VMTEVSIiwiaWF0IjoxNzMzNTc5MzY4LCJleHAiOjE3MzM2NjU3Njh9.AOy8qFwPKt-U8DzILOfYd_477m5u30VvrAyI-itJKxM
+X-AUTH-TOKEN:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJXckVlMHB0Tnp5bG1zT1BHMGdKaXpkODhlcS9OcUdoWm5aa00zYjVaSXNNPSIsImp0aSI6ImovVjVCeUxPc2pIWGFoY005ZnU2ZEE9PSIsInJvbGVzIjoiU0VMTEVSIiwiaWF0IjoxNzMzODEzMjc1LCJleHAiOjE3MzM4OTk2NzV9.zMxrLO2iqTj8r1RSbz8xxH_phQKCOKKTd0IgCv1zgJ8
 Content-Type: application/json
 
 {
-  "id": 0,
+  "id": 1,
   "sellerId": 0,
-  "name": "string",
+  "name": "나이키",
   "description": "string",
   "items": [
     {
-      "id": 0,
+      "id": 1,
       "name": "string",
-      "count": 0,
+      "count": 3,
       "price": 0
     }
+  ]
+}
+
+
+### 장바구니 확인
+GET http://localhost:8082/customer/cart
+X-AUTH-TOKEN:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuTm9mRXhGOUJrQVhYYzB2UVB4RUJkMTcrQ2RrUnQwQ3Z3bTFqK3pTdVM4PSIsImp0aSI6IjNuMjFOVlRzcStBbFE1K0ZKdVFla0E9PSIsInJvbGVzIjoiQ1VTVE9NRVIiLCJpYXQiOjE3MzM4MTA3NjIsImV4cCI6MTczMzg5NzE2Mn0.Mfh4304Ja202qeOgZL7A7wlcsOMnufx1JJXPzvuTA9Y
+
+### 주문 (고객)
+POST http://localhost:8082/customer/cart/order
+X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuTm9mRXhGOUJrQVhYYzB2UVB4RUJkMTcrQ2RrUnQwQ3Z3bTFqK3pTdVM4PSIsImp0aSI6IjNuMjFOVlRzcStBbFE1K0ZKdVFla0E9PSIsInJvbGVzIjoiQ1VTVE9NRVIiLCJpYXQiOjE3MzM4MTA3NjIsImV4cCI6MTczMzg5NzE2Mn0.Mfh4304Ja202qeOgZL7A7wlcsOMnufx1JJXPzvuTA9Y
+Content-Type: application/json
+
+{
+  "customerId": 0,
+  "products": [
+    {
+      "id": 1,
+      "sellerId": 0,
+      "name": "string",
+      "description": "string",
+      "items": [
+        {
+          "id": 1,
+          "name": "string",
+          "count": 2,
+          "price": 230980
+        }
+      ]
+    }
+  ],
+  "messages": [
   ]
 }

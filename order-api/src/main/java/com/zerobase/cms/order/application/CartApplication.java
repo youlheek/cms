@@ -16,15 +16,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.zerobase.cms.order.exception.ErrorCode.ITEM_COUNT_NOT_ENOUGH;
-import static com.zerobase.cms.order.exception.ErrorCode.NOT_FOUND_PRODUCT;
+import static com.zerobase.cms.order.exception.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
 public class CartApplication {
-	// TODO : 코드 확인
 	private final ProductSearchService productSearchService;
 	private final CartService cartService;
+
+	/**
+	 * 현재 product & productItem id 값으로만 추가되고 있음
+	 * 추가될 때 DB 상품명 & 상품 옵션명과 장바구니의 상품명 & 상품옵션명 확인해서
+	 * TODO : add.Message or 상품명 변경 필요할듯
+	 */
 
 	// 장바구니 상품 추가
 	public Cart addCart(Long customerId, AddProductCartForm form) {
@@ -35,7 +39,7 @@ public class CartApplication {
 		}
 
 		Cart cart = cartService.getCart(customerId);
-		if (cart != null && !addAble(cart, product, form)) {
+		if (!addAble(cart, product, form)) {
 			throw new CustomException(ITEM_COUNT_NOT_ENOUGH);
 		}
 
@@ -44,27 +48,37 @@ public class CartApplication {
 
 	// 추가할 상품의 수량이 충분한지 검증
 	private boolean addAble(Cart cart, Product product, AddProductCartForm form) {
+		// 카트에 넣으려는 상품이 카트에 이미 존재하는 상품인지 확인하고
+		// 있는 것이면 cart.Product 객체 생성해서 반환
 		Cart.Product cartProduct = cart.getProducts().stream()
 				.filter(p -> p.getId().equals(form.getId()))
 				.findFirst()
-				.orElse(Cart.Product.builder().id(product.getId())
+				.orElse(Cart.Product.builder()
+						.id(product.getId())
 						.items(Collections.emptyList())
-						.build());
+						.build()); // 없으면 cart.Product 빌드해서 반환
 
+		// 내 장바구니에 있는 품목의 옵션별 수량을 map으로 변환시켜서 cartItemCountMap으로 저장
 		Map<Long, Integer> cartItemCountMap = cartProduct.getItems().stream()
 				.collect(Collectors.toMap(Cart.ProductItem::getId, Cart.ProductItem::getCount));
 
+		// DB에 있는 실제 품목 옵션별 수량을 map으로 변환시켜서 dbItemCountMap으로 저장
 		Map<Long, Integer> dbItemCountMap = product.getProductItems().stream()
 				.collect(Collectors.toMap(ProductItem::getId, ProductItem::getCount));
 
+		// DB 수량 > 장바구니 + form 수량
 		return form.getItems().stream().noneMatch(
+				// noneMatch : 스트림의 모든 요소가 조건을 만족하지 않아야 true를 반환
 				formItem -> {
-					Integer cartCount = cartItemCountMap.get(formItem.getId());
-					if (cartCount == null) {
-						cartCount = 0;
+					// 장바구니에 이미 추가된 해당 옵션의 수량
+					Integer cartCount = cartItemCountMap.getOrDefault(formItem.getId(), 0);
+
+					// 해당 옵션의 DB 재고 수량
+					Integer dbCount = dbItemCountMap.get(formItem.getId());
+					if (dbCount == null) {
+						throw new CustomException(NOT_FOUND_ITEM);
 					}
 
-					Integer dbCount = dbItemCountMap.get(formItem.getId());
 					return formItem.getCount() + cartCount > dbCount;
 				});
 	}
@@ -74,6 +88,8 @@ public class CartApplication {
 	// 2. 상품의 가격이나 수량이 변동됐다
 	public Cart getCart(Long customerId) {
 		Cart cart = refreshCart(cartService.getCart(customerId));
+//		cartService.putCart(cart.getCustomerId(), cart);
+
 		Cart returnCart = new Cart();
 		returnCart.setCustomerId(customerId);
 		returnCart.setProducts(cart.getProducts());
@@ -92,11 +108,13 @@ public class CartApplication {
 		cartService.putCart(customerId, null);
 	}
 
-	// 카트 새로고침
-	private Cart refreshCart(Cart cart) {
+	// 가격, 수량을 DB와 비교하여 Cart 새로고침
+	protected Cart refreshCart(Cart cart) {
 		// 1. 상품이나 상품의 아이템의 정보, 가격, 수량이 변경되었는지 체크하고
 		// 그에 맞는 알람을 제공해야함
 		// 2. 상품의 수량, 가격을 우리가 임의로 변경한다
+
+		// cart의 productId로 DB의 product를 가져와 productMap을 만듬
 		Map<Long, Product> productMap =
 				productSearchService.getListByProducIds(
 								cart.getProducts().stream().map(Cart.Product::getId)
@@ -106,7 +124,7 @@ public class CartApplication {
 
 		// 카트에 있는 상품들이 실제 존재하는지 확인하고
 		// 없으면 카트에서 제거
-		for (int i = 0; i < cart.getProducts().size(); i++) { // TODO : 왜 iterator로 돌리지 않고 for문을 썼는지?
+		for (int i = 0; i < cart.getProducts().size(); i++) {
 
 			Cart.Product cartProduct = cart.getProducts().get(i);
 
@@ -127,6 +145,7 @@ public class CartApplication {
 			List<String> tmpMessages = new ArrayList<>();
 			for (int j = 0; j < cartProduct.getItems().size(); j++) {
 
+				// cartProductItem 은 참조객체타입이라 set 하면 cart에 반영됨
 				Cart.ProductItem cartProductItem = cartProduct.getItems().get(j);
 				ProductItem pi = productItemMap.get(cartProductItem.getId());
 
@@ -178,7 +197,7 @@ public class CartApplication {
 			}
 
 		}
-		cartService.putCart(cart.getCustomerId(), cart);
+
 		return cart;
 	}
 
