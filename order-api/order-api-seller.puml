@@ -1,0 +1,35 @@
+@startuml
+
+actor Seller as seller
+participant "Server" as sv
+participant "Auth Server" as as
+participant "DB" as db
+
+group Step 1 : 상품 등록, 수정
+autonumber "(0)"
+    seller -> sv : 상품 정보, 토큰
+    activate sv
+        sv -> as : 토큰 검증
+            activate as
+            as -> sv : 사용자 정보
+            deactivate as
+        sv -> db : 사용자, 상품 정보
+            activate db
+            db --> sv : 등록/수정된 상품 정보
+            deactivate db
+        sv --> seller : 등록/수정된 상품 정보
+    deactivate sv
+end
+
+group  Step 2 : 상품 삭제
+autonumber "(0)"
+    seller -> sv : 상품 id, 토큰
+    activate sv
+        sv -> db : 셀러 id, 상품 id
+        db -> db : 상품 삭제
+    
+    sv -> seller : "삭제가 완료되었습니다"
+    deactivate sv
+end
+
+@enduml

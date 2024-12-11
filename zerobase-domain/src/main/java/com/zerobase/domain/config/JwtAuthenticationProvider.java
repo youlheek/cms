@@ -53,7 +53,6 @@ public class JwtAuthenticationProvider {
 	// 토큰으로 UserVo 객체 생성
 	public UserVo getUserVo(String token) {
 		Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
-		// TODO : 코드 확인
 
 		return new UserVo(
 				Long.valueOf(Objects.requireNonNull(Aes256Util.decrypt(claims.getId()))),

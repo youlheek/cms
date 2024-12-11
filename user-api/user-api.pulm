@@ -1,0 +1,36 @@
+@startuml
+
+actor User
+participant "Auth Server" as as
+participant "Token Generator" as tg
+
+
+group Step 1 : jwt 토큰 발급
+autonumber 1 "(0)"
+User -> as : POST /signIn/customer
+activate as
+as -> as : 사용자 검증
+as -> tg : 사용자 email, id
+activate tg
+tg --> as : jwt 토큰 생성
+deactivate tg
+as --> User : jwt 토큰 발급
+deactivate as
+end
+
+
+group Step 2 : jwt 토큰으로 사용자 정보 조회
+autonumber 1 "(0)"
+User -> as : GET /customer/getInfo
+activate as
+as -> tg : jwt token
+activate tg
+tg -> tg : 토큰 유효성 검증
+tg -> tg : 토큰으로 사용자 정보 조회
+tg --> as : 사용자 정보
+deactivate tg
+as --> User : 사용자 정보
+deactivate as
+end
+
+@enduml
