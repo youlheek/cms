@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 @FeignClient(name = "user-api", url = "${feign.client.url.user-api}")
 public interface UserClient {
-// TODO : 왜 interface로 쓴걸까?
+// TODO : 어떤식으로 동작하는건지 확인
 
 	@GetMapping("/customer/getInfo")
 	ResponseEntity<CustomerDto> getCustomerInfo(@RequestHeader(name = "X-AUTH-TOKEN") String token);

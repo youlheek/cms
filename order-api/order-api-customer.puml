@@ -1,0 +1,121 @@
+@startuml
+
+actor "Customer" as cs
+participant "Server" as sv
+participant "AuthServer" as as
+participant "DB" as db
+participant "Redis" as rd
+
+
+group Step 1 : 상품 검색
+autonumber "(0)"
+cs -> sv : 상품명
+    activate sv
+    sv -> db : 상품명
+        activate db
+        db --> sv : 상품 정보
+        deactivate db
+    sv --> cs : 상품 정보
+    deactivate sv
+end
+
+
+group Step 2 : 장바구니 추가 및 변경
+autonumber "(0)"
+cs -> sv : 토큰, 장바구니 정보
+    activate sv
+    sv -> as : 토큰
+
+        activate as
+        as -> as : 토큰 및 고객 \n유효성 검증
+        as --> sv : 고객 id
+        deactivate as
+
+        sv -> db : 상품 id
+        activate db
+        db --> sv : 상품 정보
+        deactivate db
+
+        sv -> rd : 고객 id
+        activate rd
+        rd --> sv : 장바구니 정보
+        sv -> rd : [실제 수량 > 장바구니 수량] \n고객 id, 장바구니 정보
+        rd -> rd : 장바구니 추가
+        rd --> sv : 장바구니 정보
+        deactivate rd
+    sv -> cs : 장바구니 정보
+    deactivate sv
+end
+
+
+group Step 3 : 장바구니 확인
+autonumber "(0)"
+cs -> sv : 토큰
+    activate sv
+    sv -> as : 토큰
+        activate as
+        as -> as : 토큰 및 고객\n유효성 검증
+        as--> sv : 고객 id
+        deactivate as
+
+        sv -> db : 장바구니 목록
+        activate db
+        db --> sv : 실제 상품 목록
+        deactivate db
+        opt 장바구니 상품이 실제 존재하지 않는 상품일 경우
+        sv -> sv : 장바구니 상품 삭제\n장바구니에 메시지 추가
+        end opt
+        opt 가격, 수량이 변경되었을 경우
+        sv -> sv : 장바구니 가격, 수량 변경\n장바구니에 메시지 추가
+        end opt
+        opt 상품 옵션이 변경되었을 경우
+        sv -> sv : 상품 옵션 변경\n장바구니에 메시지 추가
+        end opt
+
+        sv ->> rd : 장바구니 새로고침
+        activate rd
+        deactivate rd
+    sv --> cs : 장바구니 정보
+    deactivate sv
+end
+
+
+group Step 4 : 주문하기
+autonumber "(0)"
+cs -> sv : 토큰, 주문서 제출
+    activate sv
+     sv -> db : 주문서 목록
+            activate db
+            db --> sv : 실제 상품 목록
+            deactivate db
+            opt 주문서 상품이 실제 존재하지 않는 상품일 경우
+            sv -> sv : 주문서 상품 삭제\n주문서에 메시지 추가
+            end opt
+            opt 가격, 수량이 변경되었을 경우
+            sv -> sv : 주문서 가격, 수량 변경\n주문서에 메시지 추가
+            end opt
+            opt 상품 옵션이 변경되었을 경우
+            sv -> sv : 상품 옵션 변경\n주문서에 메시지 추가
+            end opt
+
+            sv ->> rd : 주문서 새로고침
+            activate rd
+            deactivate rd
+
+            opt 주문서에 문제가 없을 경우
+            sv -> sv : 토큰 유효성 검증 및\n토큰으로 고객 정보 조회
+                opt 고객 예치금 > 주문서 총액
+                sv -> db : 주문 결제
+                activate db
+                sv -> db : 상품 재고 변경
+                deactivate db
+                end opt
+
+            end opt
+    sv --> cs : "ok"
+    deactivate sv
+
+end
+
+
+@enduml
