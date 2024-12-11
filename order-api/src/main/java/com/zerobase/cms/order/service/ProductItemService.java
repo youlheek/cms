@@ -58,4 +58,10 @@ public class ProductItemService {
 
 		productItemRepository.delete(productItem);
 	}
+
+	@Transactional // TODO : 굳이 여기다가도 Transacational 을 써야하나?
+	public ProductItem getProductItem(Long id) {
+		return productItemRepository.getById(id);
+	}
+
 }
