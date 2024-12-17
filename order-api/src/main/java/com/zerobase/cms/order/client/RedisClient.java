@@ -15,7 +15,7 @@ import static com.zerobase.cms.order.exception.ErrorCode.CART_CHANGE_FAIL;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class RedisClient { // TODO : 코드 확인
+public class RedisClient {
 
 	private final RedisTemplate<String, Object> redisTemplate;
 	private static final ObjectMapper mapper = new ObjectMapper();

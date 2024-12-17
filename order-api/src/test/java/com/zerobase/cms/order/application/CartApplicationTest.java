@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class CartApplicationTest {
-// TODO : 코드 확인
 
 	@Autowired
 	private CartApplication cartApplication;
