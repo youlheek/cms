@@ -27,7 +27,8 @@ public class CustomerFilter implements Filter {
 		String token = req.getHeader("X-AUTH-TOKEN");
 
 		// 1. 토큰이 유효한지 검증
-		if (token == null && !jwtAuthenticationProvider.validateToken(token)) {
+
+		if (!jwtAuthenticationProvider.validateToken(token)) {
 			throw new ServletException("Invalid token");
 			// 강사님은 "Invalid Access" 처리함
 		}
