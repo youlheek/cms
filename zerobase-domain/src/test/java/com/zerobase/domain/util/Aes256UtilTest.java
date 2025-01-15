@@ -30,5 +30,7 @@ class Aes256UtilTest {
 		answer = IntStream.range(0, a.length).map(index -> a[index]*b[index]).sum();
 
 		assertEquals(3, answer);
+
+		//test
 	}
 }
