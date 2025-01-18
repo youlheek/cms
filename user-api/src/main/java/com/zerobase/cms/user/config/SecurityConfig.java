@@ -22,7 +22,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	@Order(1)
+	@Order(2)
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable() // csrf 비활성화 (API 호출용), Jwt 사용시 필요 없음
 				// CSRF 보호 : 세션 기반 인증에서는 필요하지만 JWT는 상태를 저장하지 않는 무상태 방식이므로 불필요
@@ -44,7 +44,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	@Order(2)
+	@Order(1)
 	SecurityFilterChain customerSecurityChain(HttpSecurity http) throws Exception {
 		http.securityMatcher("/customer/**")
 				.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())

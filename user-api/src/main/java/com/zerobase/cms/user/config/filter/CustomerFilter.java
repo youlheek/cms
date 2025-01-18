@@ -25,7 +25,6 @@ public class CustomerFilter implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		String token = req.getHeader("X-AUTH-TOKEN");
-
 		// 1. 토큰이 유효한지 검증
 
 		if (!jwtAuthenticationProvider.validateToken(token)) {
