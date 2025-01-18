@@ -11,6 +11,7 @@ import com.zerobase.cms.user.service.customer.SignUpCustomerService;
 import com.zerobase.cms.user.service.seller.SellerService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,8 @@ import static com.zerobase.cms.user.exception.ErrorCode.ALREADY_REGISTERED_USER;
 @RequiredArgsConstructor
 public class SignUpApplication {
 // 회원가입 시 필요한 기능들 만들기
+	@Value("${server.url}")
+	private String serverUrl;
 
 	private final MailgunClient mailgunClient;
 	private final SignUpCustomerService signUpCustomerService;
@@ -104,7 +107,10 @@ public class SignUpApplication {
 				.append("Hello ")
 				.append(name)
 				.append("! Please Click Link for verification.\n\n")
-				.append("http://localhost:8081/signup/"+type+"/verify?email=")
+				.append(serverUrl)
+				.append("/signup/")
+				.append(type)
+				.append("/verify?email=")
 				.append(email)
 				.append("&code=")
 				.append(code).toString();
