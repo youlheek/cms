@@ -22,14 +22,12 @@ class Aes256UtilTest {
 	@Test
 	void solution() {
 
-		int[] a = {1,2,3,4};
-		int[] b = {-3,-1,0,2};
-		int answer = 0;
+		int n = 3;
+		String answer = "";
 
 
-		answer = IntStream.range(0, a.length).map(index -> a[index]*b[index]).sum();
 
-		assertEquals(3, answer);
+		assertEquals("we", answer);
 
 		//test3
 	}
