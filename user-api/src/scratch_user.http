@@ -36,3 +36,14 @@ Content-Type: application/json
 
 
 ### TODO : scratch
+GET https://api.x.com/1.1/trends/place.json?id=1
+Authorization: Bearer AAAAAAAAAAAAAAAAAAAAAEABzAEAAAAAuYMST0QQPxZi%2F1HlCZTcoFrPBQo%3Di76VrHSLG0outaNL0DtDzfxYeRKVndInJwkoK18Gs4UEwsVyWX
+
+###
+
+# curl "https://api.twitter.com/2/trends/by/woeid/1?max_trends=10" -H "Authorization: Bearer $BEARER_TOKEN"
+GET https://api.x.com/2/tweets?ids=1261326399320715264,1278347468690915330
+Authorization: Bearer AAAAAAAAAAAAAAAAAAAAAEABzAEAAAAAuYMST0QQPxZi%2F1HlCZTcoFrPBQo%3Di76VrHSLG0outaNL0DtDzfxYeRKVndInJwkoK18Gs4UEwsVyWX
+
+###
+

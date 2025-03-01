@@ -1,4 +1,4 @@
-package com.zerobase.cms.user.applicatoin;
+package com.zerobase.cms.user.application;
 
 import com.zerobase.cms.user.domain.AuthResponse;
 import com.zerobase.cms.user.domain.SignInForm;

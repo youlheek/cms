@@ -1,6 +1,6 @@
 package com.zerobase.cms.user.controller;
 
-import com.zerobase.cms.user.applicatoin.SignInApplication;
+import com.zerobase.cms.user.application.SignInApplication;
 import com.zerobase.cms.user.domain.SignInForm;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -33,4 +33,5 @@ public class SignInController {
 		// 로그인 처리 및 토큰 발행
 		return ResponseEntity.ok(signInApplication.sellerLogInToken(form));
 	}
+
 }

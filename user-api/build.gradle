@@ -55,10 +55,22 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis' // Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis:3.2.4' // Redis
+    implementation 'io.lettuce:lettuce-core:6.3.2.RELEASE'
     testImplementation('it.ozimov:embedded-redis:0.7.3') {
         exclude group: "org.slf4j", module: "slf4j-simple"
     }
+
+    // HTTP 요청을 위한 Apache HttpClient
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+
+    // Selenium 최신 버전 고정 (4.16.1 이상)
+    implementation 'org.seleniumhq.selenium:selenium-java:4.16.1'
+    implementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.16.1'
+
+    // WebDriverManager 최신 버전 (5.7.0)
+    implementation 'io.github.bonigarcia:webdrivermanager:5.7.0'
+
 }
 
 tasks.named('test') {

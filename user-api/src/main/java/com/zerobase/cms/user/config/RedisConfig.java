@@ -22,7 +22,6 @@ public class RedisConfig {
 		redisTemplate.setValueSerializer(serializer);
 		redisTemplate.setHashKeySerializer(serializer);
 		redisTemplate.setHashValueSerializer(serializer);
-		// setHash는 안 하기도 함
 
 		return redisTemplate;
 	}
