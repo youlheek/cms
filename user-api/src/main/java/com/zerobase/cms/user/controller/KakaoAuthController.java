@@ -1,11 +1,8 @@
 package com.zerobase.cms.user.controller;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zerobase.cms.user.application.KakaoAuthApplication;
 import com.zerobase.cms.user.domain.KakaoTokenResponse;
-import com.zerobase.cms.user.domain.KakaoUserInfoResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
